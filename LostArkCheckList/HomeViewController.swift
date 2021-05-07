@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  LostArkCheckList
 //
 //  Created by rae on 2021/05/05.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     private let userDefaults = UserDefaults.standard
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
             return 0
@@ -92,5 +92,15 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard var characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
+            return
+        }
+        
+        characterArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        self.userDefaults.setValue(characterArray, forKey: "characterArray")
+        self.userDefaults.synchronize()
     }
 }
