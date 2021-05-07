@@ -43,14 +43,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="x9J-kw-34A" secondAttribute="bottom" id="C6u-P6-ZYK"/>
+                            <constraint firstItem="x9J-kw-34A" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="C6u-P6-ZYK"/>
                             <constraint firstItem="x9J-kw-34A" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Xad-tS-0dm"/>
                             <constraint firstItem="x9J-kw-34A" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="lGr-82-R2n"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x9J-kw-34A" secondAttribute="trailing" id="nHs-xf-LTZ"/>
+                            <constraint firstItem="x9J-kw-34A" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="nHs-xf-LTZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="LostArk" id="zaO-Uh-eJF">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="isc-pr-YYH"/>
+                        <barButtonItem key="leftBarButtonItem" title="편집" id="HoQ-W6-uLP">
+                            <connections>
+                                <action selector="touchUpEditButton:" destination="BYZ-38-t0r" id="iwZ-ea-j1o"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="dA7-8t-fAW">
                             <connections>
                                 <action selector="touchUpAddButton:" destination="BYZ-38-t0r" id="1BG-Di-fYg"/>
@@ -81,11 +85,11 @@
             </objects>
             <point key="canvasLocation" x="2010" y="1072"/>
         </scene>
-        <!--Home-->
+        <!--홈-->
         <scene sceneID="dBD-jN-qSh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ieL-nB-hPI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="fqk-1O-8Rl"/>
+                    <tabBarItem key="tabBarItem" title="홈" image="house" catalog="system" id="fqk-1O-8Rl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c6j-Mi-SlE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -106,6 +110,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Sgt-bV-TwP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sYr-U3-nkg">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
