@@ -12,6 +12,7 @@ class ToDoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let userDefaults = UserDefaults.standard
     private let cellIdentifier = "todoCell"
+    private let todoChoices = ["일일", "주간", "무기한"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +33,10 @@ class ToDoViewController: UIViewController {
     
     @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "할 일 추가", message: nil, preferredStyle: .alert)
+        
         alertController.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "할 일"
+            textField.clearButtonMode = .whileEditing
         })
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in

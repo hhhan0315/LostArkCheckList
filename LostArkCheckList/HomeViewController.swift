@@ -34,6 +34,7 @@ class HomeViewController: UIViewController {
         let alertController = UIAlertController(title: "캐릭터 추가", message: nil, preferredStyle: .alert)
         alertController.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "캐릭터명"
+            textField.clearButtonMode = .whileEditing
         })
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
