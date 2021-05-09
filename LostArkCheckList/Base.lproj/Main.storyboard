@@ -19,6 +19,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x9J-kw-34A">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="72a-be-hcY">
+                                    <rect key="frame" x="0.0" y="92.500000346790671" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="characterCell" textLabel="v3C-a6-NBc" style="IBUITableViewCellStyleDefault" id="xOO-Is-Tma">
                                         <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
@@ -69,17 +74,67 @@
             </objects>
             <point key="canvasLocation" x="2009" y="204"/>
         </scene>
-        <!--View Controller-->
+        <!--To do-->
         <scene sceneID="MQV-xP-bcG">
             <objects>
-                <viewController id="OyF-rB-udT" sceneMemberID="viewController">
+                <viewController id="OyF-rB-udT" customClass="ToDoViewController" customModule="LostArkCheckList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NrO-SV-k81">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IdX-ZF-m3u">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Xop-Ul-5Sl">
+                                    <rect key="frame" x="0.0" y="92.500000346790671" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" textLabel="Eal-6Y-HhP" style="IBUITableViewCellStyleDefault" id="n5O-dw-ofi">
+                                        <rect key="frame" x="0.0" y="24.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n5O-dw-ofi" id="DV7-2i-Ngn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Eal-6Y-HhP">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="1uS-Bo-2wB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IdX-ZF-m3u" firstAttribute="leading" secondItem="1uS-Bo-2wB" secondAttribute="leading" id="BHj-Ls-8pB"/>
+                            <constraint firstItem="1uS-Bo-2wB" firstAttribute="trailing" secondItem="IdX-ZF-m3u" secondAttribute="trailing" id="TkQ-oS-knP"/>
+                            <constraint firstItem="1uS-Bo-2wB" firstAttribute="bottom" secondItem="IdX-ZF-m3u" secondAttribute="bottom" id="VCu-a1-fA6"/>
+                            <constraint firstItem="IdX-ZF-m3u" firstAttribute="top" secondItem="1uS-Bo-2wB" secondAttribute="top" id="q0a-5K-LvE"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="XlE-gX-XuR"/>
+                    <navigationItem key="navigationItem" title="To do" id="XlE-gX-XuR">
+                        <barButtonItem key="leftBarButtonItem" title="편집" id="UjX-mb-SrU">
+                            <connections>
+                                <action selector="touchUpEditButton:" destination="OyF-rB-udT" id="kVi-og-RRN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aI7-NX-6H6">
+                            <connections>
+                                <action selector="touchUpAddButton:" destination="OyF-rB-udT" id="NTf-YD-7Pz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="IdX-ZF-m3u" id="E0a-PI-LIc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KWa-0m-kHX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,11 +178,11 @@
             </objects>
             <point key="canvasLocation" x="36" y="653"/>
         </scene>
-        <!--Item-->
+        <!--할 일-->
         <scene sceneID="vKH-1g-Ezd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qEL-1A-mzj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="vAP-0C-P6g"/>
+                    <tabBarItem key="tabBarItem" title="할 일" image="list.bullet" catalog="system" id="vAP-0C-P6g"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8fW-5U-Ygl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -145,6 +200,7 @@
     </scenes>
     <resources>
         <image name="house" catalog="system" width="128" height="106"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
