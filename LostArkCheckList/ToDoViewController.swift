@@ -13,6 +13,7 @@ class ToDoViewController: UIViewController {
     private let userDefaults = UserDefaults.standard
     private let cellIdentifier = "todoCell"
     private let todoChoices = ["일일", "주간", "무기한"]
+    private var todoChoice = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,18 +34,25 @@ class ToDoViewController: UIViewController {
     
     @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "할 일 추가", message: nil, preferredStyle: .alert)
-        let contentView = AlertListViewController()
+        let contentView = UIViewController()
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerView.selectRow(1, inComponent: 0, animated: true)
+        self.todoChoice = "주간"
+        contentView.view = pickerView
+        
         let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
             guard let todoName = alertController.textFields?[0].text else {
                 return
             }
-            let todoChoice = contentView.todoChoice
+
             var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] ?? [:]
-            
-            if !todoDict.keys.contains(todoChoice) {
-                todoDict[todoChoice] = [todoName]
+
+            if !todoDict.keys.contains(self.todoChoice) {
+                todoDict[self.todoChoice] = [todoName]
             } else {
-                todoDict[todoChoice]?.append(todoName)
+                todoDict[self.todoChoice]?.append(todoName)
             }
             
             self.userDefaults.setValue(todoDict, forKey: "todoDict")
@@ -79,10 +87,6 @@ class ToDoViewController: UIViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-//        guard let todoDict = self.userDefaults.dictionary(forKey: "todoDict") else {
-//            return 0
-//        }
-//        return todoDict.count
         return 3
     }
     
@@ -157,4 +161,32 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
 //    }
     
     
+}
+
+// MARK:- UIPickerViewDelegate, UIPickerViewDataSource
+extension ToDoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.todoChoices.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.todoChoices[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch row {
+        case 0:
+            self.todoChoice = self.todoChoices[row]
+        case 1:
+            self.todoChoice = self.todoChoices[row]
+        case 2:
+            self.todoChoice = self.todoChoices[row]
+        default:
+            return
+        }
+    }
 }
