@@ -9,6 +9,7 @@ import UIKit
 
 class AlertListViewController: UITableViewController {
     private let todoChoices = ["일일", "주간", "무기한"]
+    var todoChoice = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,4 +33,7 @@ class AlertListViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.todoChoice = todoChoices[indexPath.row]
+    }
 }

@@ -32,13 +32,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func touchUpAddButton(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "캐릭터 추가", message: nil, preferredStyle: .alert)
-        alertController.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "캐릭터명"
-            textField.clearButtonMode = .whileEditing
-            textField.font = UIFont.systemFont(ofSize: 16)
-        })
-        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-        alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
             guard let characterName = alertController.textFields?[0].text else {
                 return
             }
@@ -48,11 +42,31 @@ class HomeViewController: UIViewController {
             self.userDefaults.setValue(characterArray, forKey: "characterArray")
             self.userDefaults.synchronize()
             self.tableView.reloadData()
-        }))
+        })
+        
+        okAction.isEnabled = false
+        
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "캐릭터명"
+            textField.clearButtonMode = .whileEditing
+            textField.font = UIFont.systemFont(ofSize: 16)
+            
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main, using: { _ in
+                let textCount = textField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
+                let textIsNotEmpty = textCount > 0
+                
+                okAction.isEnabled = textIsNotEmpty
+            })
+        })
+        
+        alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        alertController.addAction(okAction)
+        
         
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
+    
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -68,9 +82,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
             return UITableViewCell()
         }
-        let characterArray = self.userDefaults.stringArray(forKey: "characterArray")
+        guard let characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
+            return UITableViewCell()
+        }
 
-        cell.textLabel?.text = characterArray?[indexPath.row]
+        cell.textLabel?.text = characterArray[indexPath.row]
         cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
         
         return cell
