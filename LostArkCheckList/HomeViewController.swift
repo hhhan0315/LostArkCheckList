@@ -11,7 +11,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     private let userDefaults = UserDefaults.standard
-    private let cellIdentifier = "characterCell"
+    private let cellIdentifier = "homeCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +66,6 @@ class HomeViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -77,7 +76,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return characterArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
             return UITableViewCell()
@@ -85,13 +84,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
             return UITableViewCell()
         }
-
+        
         cell.textLabel?.text = characterArray[indexPath.row]
         cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
         
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard var characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
             return
@@ -120,5 +119,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         characterArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
         self.userDefaults.setValue(characterArray, forKey: "characterArray")
         self.userDefaults.synchronize()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") else {
+            return
+        }
+        
+        guard let characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
+            return
+        }
+        
+        nextVC.navigationItem.title = characterArray[indexPath.row]
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
