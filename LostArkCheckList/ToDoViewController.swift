@@ -12,8 +12,8 @@ class ToDoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let userDefaults = UserDefaults.standard
     private let cellIdentifier = "todoCell"
-    private let todoChoices = ["일일", "주간", "무기한"]
-    private var todoChoice = String()
+    private let todoSections = ["일일", "주간", "무기한"]
+    private var todoSection = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,23 +36,27 @@ class ToDoViewController: UIViewController {
         let alertController = UIAlertController(title: "할 일 추가", message: nil, preferredStyle: .alert)
         let contentView = UIViewController()
         let pickerView = UIPickerView()
+        let choiceRowNum = 1
+        
         pickerView.delegate = self
         pickerView.dataSource = self
-        pickerView.selectRow(1, inComponent: 0, animated: true)
-        self.todoChoice = "주간"
+        pickerView.selectRow(choiceRowNum, inComponent: 0, animated: true)
+        self.todoSection = self.todoSections[choiceRowNum]
+        
         contentView.view = pickerView
+        contentView.preferredContentSize.height = 120
         
         let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
             guard let todoName = alertController.textFields?[0].text else {
                 return
             }
-
+            
             var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] ?? [:]
-
-            if !todoDict.keys.contains(self.todoChoice) {
-                todoDict[self.todoChoice] = [todoName]
+            
+            if !todoDict.keys.contains(self.todoSection) {
+                todoDict[self.todoSection] = [todoName]
             } else {
-                todoDict[self.todoChoice]?.append(todoName)
+                todoDict[self.todoSection]?.append(todoName)
             }
             
             self.userDefaults.setValue(todoDict, forKey: "todoDict")
@@ -91,22 +95,16 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return todoChoices[section]
+        return todoSections[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
             return 0
         }
-
-        if section == 0 {
-            return todoDict["일일"]?.count ?? 0
-        } else if section == 1 {
-            return todoDict["주간"]?.count ?? 0
-        } else if section == 2 {
-            return todoDict["무기한"]?.count ?? 0
-        }
-        return 0
+        let todoSectionName = todoSections[section]
+        
+        return todoDict[todoSectionName]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,48 +115,52 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         guard let todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
             return UITableViewCell()
         }
-
-        if indexPath.section == 0 {
-            cell.textLabel?.text = todoDict["일일"]?[indexPath.row]
-        } else if indexPath.section == 1 {
-            cell.textLabel?.text = todoDict["주간"]?[indexPath.row]
-        } else if indexPath.section == 2 {
-            cell.textLabel?.text = todoDict["무기한"]?[indexPath.row]
-        }
+        let todoSectionName = todoSections[indexPath.section]
+        
+        cell.textLabel?.text = todoDict[todoSectionName]?[indexPath.row]
         cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
         
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        guard var todoArray = self.userDefaults.stringArray(forKey: "todoArray") else {
-//            return
-//        }
-//        let todoName = todoArray[indexPath.row]
-//
-//        if editingStyle == .delete {
-//            let alertController = UIAlertController(title: "할 일 삭제", message: "\(todoName) 삭제하시겠습니까?", preferredStyle: .alert)
-//            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-//            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-//                todoArray.remove(at: indexPath.row)
-//                self.userDefaults.setValue(todoArray, forKey: "todoArray")
-//                self.userDefaults.synchronize()
-//                self.tableView.deleteRows(at: [indexPath], with: .fade)
-//            }))
-//
-//            self.present(alertController, animated: true, completion: nil)
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        guard var todoArray = self.userDefaults.stringArray(forKey: "todoArray") else {
-//            return
-//        }
-//
-//        todoArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
-//        self.userDefaults.setValue(todoArray, forKey: "todoArray")
-//        self.userDefaults.synchronize()
-//    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
+            return
+        }
+        
+        let todoSectionName = todoSections[indexPath.section]
+        let todoName = todoDict[todoSectionName]?[indexPath.row] ?? ""
+        
+        if editingStyle == .delete {
+            let alertController = UIAlertController(title: "할 일 삭제", message: "\(todoName)\n삭제하시겠습니까?", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                todoDict[todoSectionName]?.remove(at: indexPath.row)
+                print(todoDict)
+                self.userDefaults.setValue(todoDict, forKey: "todoDict")
+                self.userDefaults.synchronize()
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
+            return
+        }
+        
+        let sourceSectionName = todoSections[sourceIndexPath.section]
+        let destinationSectionName = todoSections[destinationIndexPath.section]
+        let sourceName = todoDict[sourceSectionName]?[sourceIndexPath.row]
+        
+        todoDict[sourceSectionName]?.remove(at: sourceIndexPath.row)
+        todoDict[destinationSectionName]?.insert(sourceName!, at: destinationIndexPath.row)
+
+        self.userDefaults.setValue(todoDict, forKey: "todoDict")
+        self.userDefaults.synchronize()
+    }
     
     
 }
@@ -170,21 +172,21 @@ extension ToDoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.todoChoices.count
+        return self.todoSections.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.todoChoices[row]
+        return self.todoSections[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch row {
         case 0:
-            self.todoChoice = self.todoChoices[row]
+            self.todoSection = self.todoSections[row]
         case 1:
-            self.todoChoice = self.todoChoices[row]
+            self.todoSection = self.todoSections[row]
         case 2:
-            self.todoChoice = self.todoChoices[row]
+            self.todoSection = self.todoSections[row]
         default:
             return
         }

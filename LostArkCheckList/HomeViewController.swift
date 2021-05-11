@@ -99,7 +99,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let characterName = characterArray[indexPath.row]
         
         if editingStyle == .delete {
-            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(characterName) 삭제하시겠습니까?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(characterName)\n삭제하시겠습니까?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 characterArray.remove(at: indexPath.row)
