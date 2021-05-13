@@ -15,6 +15,7 @@
 		01C7C67A2642C3E000F15B12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01C7C6782642C3E000F15B12 /* LaunchScreen.storyboard */; };
 		01FF4DD82647B9FF005AA4A0 /* ToDoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF4DD72647B9FF005AA4A0 /* ToDoViewController.swift */; };
 		01FF4DDE264AA971005AA4A0 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF4DDD264AA971005AA4A0 /* CharacterDetailViewController.swift */; };
+		01FF4DE9264C0BE9005AA4A0 /* CoreData_LostArk.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01FF4DE7264C0BE9005AA4A0 /* CoreData_LostArk.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		01C7C67B2642C3E000F15B12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01FF4DD72647B9FF005AA4A0 /* ToDoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoViewController.swift; sourceTree = "<group>"; };
 		01FF4DDD264AA971005AA4A0 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
+		01FF4DE8264C0BE9005AA4A0 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				01C7C6762642C3E000F15B12 /* Assets.xcassets */,
 				01C7C6782642C3E000F15B12 /* LaunchScreen.storyboard */,
 				01C7C67B2642C3E000F15B12 /* Info.plist */,
+				01FF4DE7264C0BE9005AA4A0 /* CoreData_LostArk.xcdatamodeld */,
 			);
 			path = LostArkCheckList;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			files = (
 				01FF4DDE264AA971005AA4A0 /* CharacterDetailViewController.swift in Sources */,
 				01FF4DD82647B9FF005AA4A0 /* ToDoViewController.swift in Sources */,
+				01FF4DE9264C0BE9005AA4A0 /* CoreData_LostArk.xcdatamodeld in Sources */,
 				01C7C6722642C3DF00F15B12 /* HomeViewController.swift in Sources */,
 				01C7C66E2642C3DF00F15B12 /* AppDelegate.swift in Sources */,
 				01C7C6702642C3DF00F15B12 /* SceneDelegate.swift in Sources */,
@@ -349,6 +353,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		01FF4DE7264C0BE9005AA4A0 /* CoreData_LostArk.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				01FF4DE8264C0BE9005AA4A0 /* CoreData.xcdatamodel */,
+			);
+			currentVersion = 01FF4DE8264C0BE9005AA4A0 /* CoreData.xcdatamodel */;
+			path = CoreData_LostArk.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 01C7C6622642C3DF00F15B12 /* Project object */;
 }
