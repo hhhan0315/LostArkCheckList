@@ -3,13 +3,19 @@
     <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="Todo" representedClassName="Todo" syncable="YES" codeGenerationType="class">
-        <attribute name="day" optional="YES" attributeType="Transformable"/>
-        <attribute name="indefine" optional="YES" attributeType="Transformable"/>
-        <attribute name="week" optional="YES" attributeType="Transformable"/>
+    <entity name="Day" representedClassName="Day" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Indefine" representedClassName="Indefine" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Week" representedClassName="Week" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Character" positionX="-375.0234375" positionY="-155.3984375" width="128" height="58"/>
-        <element name="Todo" positionX="-54" positionY="-9" width="128" height="74"/>
+        <element name="Day" positionX="-216" positionY="-63" width="128" height="44"/>
+        <element name="Week" positionX="-207" positionY="-54" width="128" height="44"/>
+        <element name="Indefine" positionX="-198" positionY="-45" width="128" height="44"/>
     </elements>
 </model>

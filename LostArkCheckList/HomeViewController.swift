@@ -108,18 +108,18 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func move() -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        do {
-            try context.save()
-            return true
-        } catch {
-            context.rollback()
-            return false
-        }
-    }
+//    func move() -> Bool {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//        
+//        do {
+//            try context.save()
+//            return true
+//        } catch {
+//            context.rollback()
+//            return false
+//        }
+//    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
