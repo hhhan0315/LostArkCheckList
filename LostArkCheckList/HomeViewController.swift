@@ -108,18 +108,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-//    func move() -> Bool {
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//        
-//        do {
-//            try context.save()
-//            return true
-//        } catch {
-//            context.rollback()
-//            return false
-//        }
-//    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -177,19 +165,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 //        self.userDefaults.synchronize()
 //    }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") else {
-//            return
-//        }
-//
-//        guard let characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
-//            return
-//        }
-//
-//        nextVC.navigationItem.title = characterArray[indexPath.row]
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-//        self.tableView.deselectRow(at: indexPath, animated: true)
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") else {
+            return
+        }
+
+        let character = self.list[indexPath.row]
+        let name = character.value(forKey: "name") as? String
+        
+        nextVC.navigationItem.title = name
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+        self.navigationController?.pushViewController(nextVC, animated: true)
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
