@@ -16,18 +16,6 @@ class ToDoViewController: UIViewController {
     private var todoSection = String()
     private let todoEnglishNames = ["Day", "Week", "Indefine"]
     
-    lazy var dayList: [NSManagedObject] = {
-        return self.fetch(entityName: "Day")
-    }()
-    
-    lazy var weekList: [NSManagedObject] = {
-        return self.fetch(entityName: "Week")
-    }()
-    
-    lazy var indefineList: [NSManagedObject] = {
-        return self.fetch(entityName: "Indefine")
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,55 +80,6 @@ class ToDoViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func fetch(entityName: String) -> [NSManagedObject] {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchResult = NSFetchRequest<NSManagedObject>(entityName: entityName)
-        let result = try! context.fetch(fetchResult)
-        return result
-    }
-    
-    func save(entityName: String, name: String) -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context)
-        object.setValue(name, forKey: "name")
-        
-        do {
-            try context.save()
-            
-            switch entityName {
-            case "Day":
-                self.dayList.append(object)
-            case "Week":
-                self.weekList.append(object)
-            case "Indefine":
-                self.indefineList.append(object)
-            default:
-                break
-            }
-            return true
-        } catch {
-            context.rollback()
-            return false
-        }
-    }
-    
-    func delete(object: NSManagedObject) -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        context.delete(object)
-        
-        do {
-            try context.save()
-            return true
-        } catch {
-            context.rollback()
-            return false
-        }
-    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -154,85 +93,85 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return self.dayList.count
-        case 1:
-            return self.weekList.count
-        case 2:
-            return self.indefineList.count
-        default:
-            return 0
-        }
+//        switch section {
+//        case 0:
+//            return self.dayList.count
+//        case 1:
+//            return self.weekList.count
+//        case 2:
+//            return self.indefineList.count
+//        default:
+//            return 0
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
-            return UITableViewCell()
-        }
-        var todo: NSManagedObject?
-        
-        switch indexPath.section {
-        case 0:
-            todo = self.dayList[indexPath.row]
-        case 1:
-            todo = self.weekList[indexPath.row]
-        case 2:
-            todo = self.indefineList[indexPath.row]
-        default:
-            break
-        }
-        
-        let name = todo?.value(forKey: "name") as? String
-        cell.textLabel?.text = name
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-        
-        return cell
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
+//            return UITableViewCell()
+//        }
+//        var todo: NSManagedObject?
+//
+//        switch indexPath.section {
+//        case 0:
+//            todo = self.dayList[indexPath.row]
+//        case 1:
+//            todo = self.weekList[indexPath.row]
+//        case 2:
+//            todo = self.indefineList[indexPath.row]
+//        default:
+//            break
+//        }
+//
+//        let name = todo?.value(forKey: "name") as? String
+//        cell.textLabel?.text = name
+//        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+//
+//        return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        var todo: NSManagedObject?
-        
-        switch indexPath.section {
-        case 0:
-            todo = self.dayList[indexPath.row]
-        case 1:
-            todo = self.weekList[indexPath.row]
-        case 2:
-            todo = self.indefineList[indexPath.row]
-        default:
-            break
-        }
-        
-        guard let name = todo?.value(forKey: "name") as? String else {
-            return
-        }
-        
-        guard let todoObj = todo else {
-            return
-        }
-
-        if editingStyle == .delete {
-            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(name)\n삭제하시겠습니까?", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                if self.delete(object: todoObj) {
-                    switch indexPath.section {
-                    case 0:
-                        self.dayList.remove(at: indexPath.row)
-                    case 1:
-                        self.weekList.remove(at: indexPath.row)
-                    case 2:
-                        self.indefineList.remove(at: indexPath.row)
-                    default:
-                        break
-                    }
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-            }))
-
-            self.present(alertController, animated: true, completion: nil)
-        }
+//        var todo: NSManagedObject?
+//        
+//        switch indexPath.section {
+//        case 0:
+//            todo = self.dayList[indexPath.row]
+//        case 1:
+//            todo = self.weekList[indexPath.row]
+//        case 2:
+//            todo = self.indefineList[indexPath.row]
+//        default:
+//            break
+//        }
+//        
+//        guard let name = todo?.value(forKey: "name") as? String else {
+//            return
+//        }
+//        
+//        guard let todoObj = todo else {
+//            return
+//        }
+//
+//        if editingStyle == .delete {
+//            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(name)\n삭제하시겠습니까?", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+//            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+//                if self.delete(object: todoObj) {
+//                    switch indexPath.section {
+//                    case 0:
+//                        self.dayList.remove(at: indexPath.row)
+//                    case 1:
+//                        self.weekList.remove(at: indexPath.row)
+//                    case 2:
+//                        self.indefineList.remove(at: indexPath.row)
+//                    default:
+//                        break
+//                    }
+//                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+//                }
+//            }))
+//
+//            self.present(alertController, animated: true, completion: nil)
+//        }
     }
     
     //    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {

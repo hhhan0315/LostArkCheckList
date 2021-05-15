@@ -13,10 +13,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellIdentifier = "homeCell"
     
-    lazy var list: [NSManagedObject] = {
-        return self.fetch()
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,9 +37,9 @@ class HomeViewController: UIViewController {
                 return
             }
             
-            if self.save(name: characterName) == true {
-                self.tableView.reloadData()
-            }
+//            if self.save(name: characterName) == true {
+//                self.tableView.reloadData()
+//            }
         })
         
         okAction.isEnabled = false
@@ -67,87 +63,47 @@ class HomeViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func fetch() -> [NSManagedObject] {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchResult = NSFetchRequest<NSManagedObject>(entityName: "Character")
-        let result = try! context.fetch(fetchResult)
-        return result
-    }
-    
-    func save(name: String) -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let object = NSEntityDescription.insertNewObject(forEntityName: "Character", into: context)
-        object.setValue(name, forKey: "name")
 
-        do {
-            try context.save()
-            self.list.append(object)
-            return true
-        } catch {
-            context.rollback()
-            return false
-        }
-    }
-    
-    func delete(object: NSManagedObject) -> Bool {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        context.delete(object)
-        
-        do {
-            try context.save()
-            return true
-        } catch {
-            context.rollback()
-            return false
-        }
-    }
-    
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.list.count
+//        return self.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
-            return UITableViewCell()
-        }
-        
-        let character = self.list[indexPath.row]
-        let name = character.value(forKey: "name") as? String
-        
-        cell.textLabel?.text = name
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-        
-        return cell
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
+//            return UITableViewCell()
+//        }
+//
+//        let character = self.list[indexPath.row]
+//        let name = character.value(forKey: "name") as? String
+//
+//        cell.textLabel?.text = name
+//        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+//
+//        return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let character = self.list[indexPath.row]
-        guard let name = character.value(forKey: "name") as? String else {
-            return
-        }
-        
-        if editingStyle == .delete {
-            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(name)\n삭제하시겠습니까?", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                if self.delete(object: character) {
-                    self.list.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-            }))
-
-            self.present(alertController, animated: true, completion: nil)
-        }
+//        let character = self.list[indexPath.row]
+//        guard let name = character.value(forKey: "name") as? String else {
+//            return
+//        }
+//
+//        if editingStyle == .delete {
+//            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(name)\n삭제하시겠습니까?", preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+//            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+//                if self.delete(object: character) {
+//                    self.list.remove(at: indexPath.row)
+//                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+//                }
+//            }))
+//
+//            self.present(alertController, animated: true, completion: nil)
+//        }
     }
     
 //    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -166,17 +122,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") else {
-            return
-        }
-
-        let character = self.list[indexPath.row]
-        let name = character.value(forKey: "name") as? String
-        
-        nextVC.navigationItem.title = name
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
-        self.navigationController?.pushViewController(nextVC, animated: true)
-        self.tableView.deselectRow(at: indexPath, animated: true)
+//        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") else {
+//            return
+//        }
+//
+//        let character = self.list[indexPath.row]
+//        let name = character.value(forKey: "name") as? String
+//        
+//        nextVC.navigationItem.title = name
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+//        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 }
