@@ -13,14 +13,27 @@ class ToDoViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private let cellIdentifier = "todoCell"
     private let todoSections = ["일일", "주간", "무기한"]
-    private var todoSection = String()
-    private let todoEnglishNames = ["Day", "Week", "Indefine"]
+    private var chooseSectionNum = 1
+    
+    private var characterList = [(id: Int, name: String)]()
+    private let characterDAO = CharacterDAO()
+    private var dayList: [DayVO]!
+    private let dayDAO = DayDAO()
+    private var weekList: [WeekVO]!
+    private let weekDAO = WeekDAO()
+    private var indefineList: [IndefineVO]!
+    private let indefineDAO = IndefineDAO()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.characterList = self.characterDAO.find()
+        self.dayList = self.dayDAO.find()
+        self.weekList = self.weekDAO.find()
+        self.indefineList = self.indefineDAO.find()
     }
     
     @IBAction func touchUpEditButton(_ sender: UIBarButtonItem) {
@@ -42,8 +55,7 @@ class ToDoViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.selectRow(choiceRowNum, inComponent: 0, animated: true)
-        
-        self.todoSection = self.todoEnglishNames[choiceRowNum]
+        self.chooseSectionNum = choiceRowNum
         
         contentView.view = pickerView
         contentView.preferredContentSize.height = 120
@@ -53,10 +65,27 @@ class ToDoViewController: UIViewController {
                 return
             }
             
-//            if self.save(entityName: self.todoSection, name: todoName) == true {
-//                self.tableView.reloadData()
-//            }
+            switch self.chooseSectionNum {
+            case 0:
+                if self.dayDAO.create(name: todoName) {
+                    self.dayList = self.dayDAO.find()
+                    self.tableView.reloadData()
+                }
+            case 1:
+                if self.weekDAO.create(name: todoName) {
+                    self.weekList = self.weekDAO.find()
+                    self.tableView.reloadData()
+                }
+            case 2:
+                if self.indefineDAO.create(name: todoName) {
+                    self.indefineList = self.indefineDAO.find()
+                    self.tableView.reloadData()
+                }
+            default:
+                break
+            }
         })
+        
         okAction.isEnabled = false
         
         alertController.setValue(contentView, forKey: "contentViewController")
@@ -93,40 +122,39 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        switch section {
-//        case 0:
-//            return self.dayList.count
-//        case 1:
-//            return self.weekList.count
-//        case 2:
-//            return self.indefineList.count
-//        default:
-//            return 0
-//        }
-        return 0
+        switch section {
+        case 0:
+            return self.dayList.count
+        case 1:
+            return self.weekList.count
+        case 2:
+            return self.indefineList.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
             return UITableViewCell()
         }
-//        var todo: NSManagedObject?
-//
-//        switch indexPath.section {
-//        case 0:
-//            todo = self.dayList[indexPath.row]
-//        case 1:
-//            todo = self.weekList[indexPath.row]
-//        case 2:
-//            todo = self.indefineList[indexPath.row]
-//        default:
-//            break
-//        }
-//
-//        let name = todo?.value(forKey: "name") as? String
-//        cell.textLabel?.text = name
-//        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-//
+
+        switch indexPath.section {
+        case 0:
+            let todo = self.dayList[indexPath.row]
+            cell.textLabel?.text = todo.dayName
+        case 1:
+            let todo = self.weekList[indexPath.row]
+            cell.textLabel?.text = todo.weekName
+        case 2:
+            let todo = self.indefineList[indexPath.row]
+            cell.textLabel?.text = todo.indefineName
+        default:
+            break
+        }
+        
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        
         return cell
     }
     
@@ -211,13 +239,13 @@ extension ToDoViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch row {
         case 0:
-            self.todoSection = self.todoEnglishNames[row]
+            self.chooseSectionNum = 0
         case 1:
-            self.todoSection = self.todoEnglishNames[row]
+            self.chooseSectionNum = 1
         case 2:
-            self.todoSection = self.todoEnglishNames[row]
+            self.chooseSectionNum = 2
         default:
-            return
+            break
         }
     }
 }

@@ -22,7 +22,6 @@ class HomeViewController: UIViewController {
         self.tableView.dataSource = self
         
         self.characterList = self.characterDAO.find()
-        print(self.characterList)
     }
     
     @IBAction func touchUpEditButton(_ sender: UIBarButtonItem) {
