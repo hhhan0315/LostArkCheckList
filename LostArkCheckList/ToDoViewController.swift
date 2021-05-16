@@ -53,9 +53,9 @@ class ToDoViewController: UIViewController {
                 return
             }
             
-            if self.save(entityName: self.todoSection, name: todoName) == true {
-                self.tableView.reloadData()
-            }
+//            if self.save(entityName: self.todoSection, name: todoName) == true {
+//                self.tableView.reloadData()
+//            }
         })
         okAction.isEnabled = false
         
@@ -103,12 +103,13 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
 //        default:
 //            return 0
 //        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
-//            return UITableViewCell()
-//        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
+            return UITableViewCell()
+        }
 //        var todo: NSManagedObject?
 //
 //        switch indexPath.section {
@@ -126,7 +127,7 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.textLabel?.text = name
 //        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
 //
-//        return cell
+        return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

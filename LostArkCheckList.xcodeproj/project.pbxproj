@@ -12,7 +12,11 @@
 		01A3AAD226500EB50031A2FD /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AAC926500EB50031A2FD /* FMDatabase.m */; };
 		01A3AAD326500EB50031A2FD /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AACD26500EB50031A2FD /* FMDatabasePool.m */; };
 		01A3AAD426500EB50031A2FD /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AACE26500EB50031A2FD /* FMResultSet.m */; };
-		01A3AAD7265010330031A2FD /* LostArkDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 01A3AAD6265010330031A2FD /* LostArkDB.db */; };
+		01A3AAD92650B1840031A2FD /* CharacterDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AAD82650B1840031A2FD /* CharacterDAO.swift */; };
+		01A3AADF265101080031A2FD /* DayDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AADE265101080031A2FD /* DayDAO.swift */; };
+		01A3AAE12651010E0031A2FD /* WeekDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AAE02651010E0031A2FD /* WeekDAO.swift */; };
+		01A3AAE3265101150031A2FD /* IndefineDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3AAE2265101150031A2FD /* IndefineDAO.swift */; };
+		01A3AAE5265103FC0031A2FD /* LostArkDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 01A3AAE4265103FC0031A2FD /* LostArkDB.db */; };
 		01C7C66E2642C3DF00F15B12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7C66D2642C3DF00F15B12 /* AppDelegate.swift */; };
 		01C7C6702642C3DF00F15B12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7C66F2642C3DF00F15B12 /* SceneDelegate.swift */; };
 		01C7C6722642C3DF00F15B12 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7C6712642C3DF00F15B12 /* HomeViewController.swift */; };
@@ -37,7 +41,11 @@
 		01A3AACC26500EB50031A2FD /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
 		01A3AACD26500EB50031A2FD /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
 		01A3AACE26500EB50031A2FD /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		01A3AAD6265010330031A2FD /* LostArkDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = LostArkDB.db; sourceTree = "<group>"; };
+		01A3AAD82650B1840031A2FD /* CharacterDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDAO.swift; sourceTree = "<group>"; };
+		01A3AADE265101080031A2FD /* DayDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDAO.swift; sourceTree = "<group>"; };
+		01A3AAE02651010E0031A2FD /* WeekDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDAO.swift; sourceTree = "<group>"; };
+		01A3AAE2265101150031A2FD /* IndefineDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndefineDAO.swift; sourceTree = "<group>"; };
+		01A3AAE4265103FC0031A2FD /* LostArkDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = LostArkDB.db; sourceTree = "<group>"; };
 		01C7C66A2642C3DF00F15B12 /* LostArkCheckList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LostArkCheckList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C7C66D2642C3DF00F15B12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01C7C66F2642C3DF00F15B12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,10 +123,14 @@
 				01FF4DD72647B9FF005AA4A0 /* ToDoViewController.swift */,
 				01FF4DDD264AA971005AA4A0 /* CharacterDetailViewController.swift */,
 				01C7C6732642C3DF00F15B12 /* Main.storyboard */,
-				01A3AAD6265010330031A2FD /* LostArkDB.db */,
 				01C7C6762642C3E000F15B12 /* Assets.xcassets */,
 				01C7C6782642C3E000F15B12 /* LaunchScreen.storyboard */,
 				01C7C67B2642C3E000F15B12 /* Info.plist */,
+				01A3AAE4265103FC0031A2FD /* LostArkDB.db */,
+				01A3AAD82650B1840031A2FD /* CharacterDAO.swift */,
+				01A3AADE265101080031A2FD /* DayDAO.swift */,
+				01A3AAE02651010E0031A2FD /* WeekDAO.swift */,
+				01A3AAE2265101150031A2FD /* IndefineDAO.swift */,
 			);
 			path = LostArkCheckList;
 			sourceTree = "<group>";
@@ -182,7 +194,7 @@
 			files = (
 				01C7C67A2642C3E000F15B12 /* LaunchScreen.storyboard in Resources */,
 				01C7C6772642C3E000F15B12 /* Assets.xcassets in Resources */,
-				01A3AAD7265010330031A2FD /* LostArkDB.db in Resources */,
+				01A3AAE5265103FC0031A2FD /* LostArkDB.db in Resources */,
 				01C7C6752642C3DF00F15B12 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,15 +206,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A3AAE3265101150031A2FD /* IndefineDAO.swift in Sources */,
 				01FF4DDE264AA971005AA4A0 /* CharacterDetailViewController.swift in Sources */,
+				01A3AADF265101080031A2FD /* DayDAO.swift in Sources */,
 				01FF4DD82647B9FF005AA4A0 /* ToDoViewController.swift in Sources */,
 				01C7C6722642C3DF00F15B12 /* HomeViewController.swift in Sources */,
+				01A3AAE12651010E0031A2FD /* WeekDAO.swift in Sources */,
 				01C7C66E2642C3DF00F15B12 /* AppDelegate.swift in Sources */,
 				01A3AAD426500EB50031A2FD /* FMResultSet.m in Sources */,
 				01A3AAD326500EB50031A2FD /* FMDatabasePool.m in Sources */,
 				01C7C6702642C3DF00F15B12 /* SceneDelegate.swift in Sources */,
 				01A3AAD126500EB50031A2FD /* FMDatabaseAdditions.m in Sources */,
 				01A3AAD026500EB50031A2FD /* FMDatabaseQueue.m in Sources */,
+				01A3AAD92650B1840031A2FD /* CharacterDAO.swift in Sources */,
 				01A3AAD226500EB50031A2FD /* FMDatabase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,7 +375,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.han.LostArkCheckList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LostArkCheckList-SQLite3-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "LostArkCheckList/LostArkCheckList-SQLite3-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -379,7 +395,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.han.LostArkCheckList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LostArkCheckList-SQLite3-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "LostArkCheckList/LostArkCheckList-SQLite3-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
