@@ -9,7 +9,6 @@ import UIKit
 
 class CharacterDetailViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
     private let cellIdentifier = "characterCell"
     
     override func viewDidLoad() {
