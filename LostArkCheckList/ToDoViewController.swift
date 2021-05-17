@@ -136,7 +136,6 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 todoDict[todoSectionName]?.remove(at: indexPath.row)
-                print(todoDict)
                 self.userDefaults.setValue(todoDict, forKey: "todoDict")
                 self.userDefaults.synchronize()
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -161,8 +160,6 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         self.userDefaults.setValue(todoDict, forKey: "todoDict")
         self.userDefaults.synchronize()
     }
-    
-    
 }
 
 // MARK:- UIPickerViewDelegate, UIPickerViewDataSource

@@ -62,7 +62,6 @@ class HomeViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(okAction)
         
-        
         self.present(alertController, animated: true, completion: nil)
     }
     
@@ -102,6 +101,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 characterArray.remove(at: indexPath.row)
+                self.userDefaults.removeObject(forKey: characterName)
                 self.userDefaults.setValue(characterArray, forKey: "characterArray")
                 self.userDefaults.synchronize()
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -122,7 +122,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") else {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "characterDetailVC") as? CharacterDetailViewController else {
             return
         }
         
@@ -130,6 +130,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
+        nextVC.characterTitle = characterArray[indexPath.row]
         nextVC.navigationItem.title = characterArray[indexPath.row]
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
