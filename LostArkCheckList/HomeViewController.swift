@@ -36,7 +36,14 @@ class HomeViewController: UIViewController {
                 return
             }
             var characterArray = self.callCharacterArray()
-            characterArray.append(characterName)
+            
+            if characterArray.contains(characterName) {
+                let alertController = UIAlertController(title: "이름 중복 오류", message: "다른 이름을 입력해주세요.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                characterArray.append(characterName)
+            }
             
             self.saveCharacterArray(characterArray: characterArray)
             self.tableView.reloadData()
