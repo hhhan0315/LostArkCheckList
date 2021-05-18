@@ -10,7 +10,6 @@ import UIKit
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    private let userDefaults = UserDefaults.standard
     private let cellIdentifier = "homeCell"
     
     override func viewDidLoad() {
@@ -170,7 +169,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 characterArray.remove(at: indexPath.row)
                 
-                self.userDefaults.removeObject(forKey: characterName)
+                UserDefaults.standard.removeObject(forKey: characterName)
                 self.saveCharacterArray(characterArray: characterArray)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }))

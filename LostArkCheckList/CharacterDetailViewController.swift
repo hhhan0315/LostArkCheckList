@@ -12,7 +12,6 @@ class CharacterDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var characterTitle = ""
     private let cellIdentifier = "characterDetailCell"
-    private let userDefaults = UserDefaults.standard
     private let todoSections = ["일일", "주간", "무기한"]
     
     override func viewDidLoad() {

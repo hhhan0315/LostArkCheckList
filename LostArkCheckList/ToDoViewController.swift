@@ -10,7 +10,6 @@ import UIKit
 class ToDoViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    private let userDefaults = UserDefaults.standard
     private let cellIdentifier = "todoCell"
     private let todoSections = ["일일", "주간", "무기한"]
     private var todoSection = String()
