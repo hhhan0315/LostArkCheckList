@@ -51,15 +51,16 @@ class ToDoViewController: UIViewController {
                 return
             }
             
-            var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] ?? [:]
+            var todoDict = self.callTodoDict()
+            let todo = Todo(name: todoName, isDone: false)
             
-            if !todoDict.keys.contains(self.todoSection) {
-                todoDict[self.todoSection] = [todoName]
+            if todoDict?.keys.contains(self.todoSection) == false {
+                todoDict?[self.todoSection] = [todo]
             } else {
-                todoDict[self.todoSection]?.append(todoName)
+                todoDict?[self.todoSection]?.append(todo)
             }
             
-            self.userDefaults.setValue(todoDict, forKey: "todoDict")
+            self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
             self.userDefaults.synchronize()
             self.tableView.reloadData()
         })
@@ -86,6 +87,13 @@ class ToDoViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func callTodoDict() -> [String:[Todo]]? {
+        var todoDict: [String:[Todo]]?
+        if let todoData = UserDefaults.standard.value(forKey:"todoDict") as? Data {
+            todoDict = try? PropertyListDecoder().decode([String:[Todo]].self, from: todoData)
+        }
+        return todoDict
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -99,44 +107,36 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
-            return 0
-        }
+        let todoDict = self.callTodoDict()
         let todoSectionName = todoSections[section]
         
-        return todoDict[todoSectionName]?.count ?? 0
+        return todoDict?[todoSectionName]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
             return UITableViewCell()
         }
-        
-        guard let todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
-            return UITableViewCell()
-        }
+        let todoDict = self.callTodoDict()
         let todoSectionName = todoSections[indexPath.section]
         
-        cell.textLabel?.text = todoDict[todoSectionName]?[indexPath.row]
+        cell.textLabel?.text = todoDict?[todoSectionName]?[indexPath.row].name
         cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
-            return
-        }
-        
+        var todoDict = self.callTodoDict()
         let todoSectionName = todoSections[indexPath.section]
-        let todoName = todoDict[todoSectionName]?[indexPath.row] ?? ""
+        let todoName = todoDict?[todoSectionName]?[indexPath.row].name ?? ""
         
         if editingStyle == .delete {
             let alertController = UIAlertController(title: "할 일 삭제", message: "\(todoName)\n삭제하시겠습니까?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-                todoDict[todoSectionName]?.remove(at: indexPath.row)
-                self.userDefaults.setValue(todoDict, forKey: "todoDict")
+                todoDict?[todoSectionName]?.remove(at: indexPath.row)
+                self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
                 self.userDefaults.synchronize()
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }))
@@ -144,21 +144,20 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    
+    //
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        guard var todoDict = self.userDefaults.dictionary(forKey: "todoDict") as? [String: [String]] else {
-            return
-        }
+        var todoDict = self.callTodoDict()
         
         let sourceSectionName = todoSections[sourceIndexPath.section]
         let destinationSectionName = todoSections[destinationIndexPath.section]
-        let sourceName = todoDict[sourceSectionName]?[sourceIndexPath.row]
+        let sourceName = todoDict?[sourceSectionName]?[sourceIndexPath.row]
         
-        todoDict[sourceSectionName]?.remove(at: sourceIndexPath.row)
-        todoDict[destinationSectionName]?.insert(sourceName!, at: destinationIndexPath.row)
-
-        self.userDefaults.setValue(todoDict, forKey: "todoDict")
+        todoDict?[sourceSectionName]?.remove(at: sourceIndexPath.row)
+        todoDict?[destinationSectionName]?.insert(sourceName!, at: destinationIndexPath.row)
+        
+        self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
         self.userDefaults.synchronize()
+        self.tableView.reloadData()
     }
 }
 
