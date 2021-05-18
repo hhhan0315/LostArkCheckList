@@ -85,19 +85,6 @@ class ToDoViewController: UIViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    func callTodoDict() -> [String:[Todo]]? {
-        var todoDict: [String:[Todo]]? = [:]
-        if let todoData = UserDefaults.standard.value(forKey:"todoDict") as? Data {
-            todoDict = try? PropertyListDecoder().decode([String:[Todo]].self, from: todoData)
-        }
-        return todoDict
-    }
-    
-    func saveTodoDict(todoDict: [String:[Todo]]?) {
-        self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
-        self.userDefaults.synchronize()
-    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource

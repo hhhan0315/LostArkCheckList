@@ -67,8 +67,28 @@ class HomeViewController: UIViewController {
     @IBAction func touchUpRefreshButton(_ sender: UIBarButtonItem) {
         let characterArray = self.callCharacterArray()
         
-        let actionController = UIAlertController(title: "전체 초기화", message: nil, preferredStyle: .actionSheet)
+        let actionController = UIAlertController(title: "전체 동기화 및 초기화", message: nil, preferredStyle: .actionSheet)
         actionController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+        
+        actionController.addAction(UIAlertAction(title: "동기화", style: .default, handler: { _ in
+            let alertController = UIAlertController(title: "전체 캐릭터 동기화", message: "할 일을 전체 캐릭터에 동기화 하시겠습니까?\n체크사항이 모두 초기화됩니다.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                
+                let todoDict = self.callTodoDict()
+                for characterTitle in characterArray {
+                    var characterDict = self.callCharacterDict(characterTitle: characterTitle)
+                    
+                    characterDict = todoDict
+                    self.saveCharacterDict(characterDict: characterDict, characterTitle: characterTitle)
+                }
+                
+                self.tableView.reloadData()
+            }))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }))
+        
         actionController.addAction(UIAlertAction(title: "일일", style: .default, handler: { _ in
             self.makeAlertController(titleName: "일일", characterArray: characterArray)
         }))
@@ -118,31 +138,6 @@ class HomeViewController: UIViewController {
         }))
 
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    func callCharacterArray() -> [String] {
-        guard let characterArray = self.userDefaults.stringArray(forKey: "characterArray") else {
-            return []
-        }
-        return characterArray
-    }
-    
-    func saveCharacterArray(characterArray: [String]) {
-        self.userDefaults.setValue(characterArray, forKey: "characterArray")
-        self.userDefaults.synchronize()
-    }
-    
-    func callCharacterDict(characterTitle: String) -> [String:[Todo]]? {
-        var characterDict: [String:[Todo]]? = [:]
-        if let characterData = UserDefaults.standard.value(forKey: characterTitle) as? Data {
-            characterDict = try? PropertyListDecoder().decode([String:[Todo]].self, from: characterData)
-        }
-        return characterDict
-    }
-    
-    func saveCharacterDict(characterDict: [String:[Todo]]?, characterTitle: String) {
-        self.userDefaults.set(try? PropertyListEncoder().encode(characterDict), forKey: characterTitle)
-        self.userDefaults.synchronize()
     }
 }
 
