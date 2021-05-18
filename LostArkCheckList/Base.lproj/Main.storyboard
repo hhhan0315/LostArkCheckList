@@ -62,11 +62,18 @@
                                 <action selector="touchUpEditButton:" destination="BYZ-38-t0r" id="iwZ-ea-j1o"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dA7-8t-fAW">
-                            <connections>
-                                <action selector="touchUpAddButton:" destination="BYZ-38-t0r" id="1BG-Di-fYg"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="dA7-8t-fAW">
+                                <connections>
+                                    <action selector="touchUpAddButton:" destination="BYZ-38-t0r" id="1BG-Di-fYg"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="zcO-6H-MfA">
+                                <connections>
+                                    <action selector="touchUpRefreshButton:" destination="BYZ-38-t0r" id="vgy-2s-yMw"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="x9J-kw-34A" id="E46-yL-uke"/>

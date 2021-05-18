@@ -27,7 +27,7 @@ class CharacterDetailViewController: UIViewController {
     func setBarRightButtonItem() {
         let syncBarButton = UIBarButtonItem(title: "동기화", style: .plain, target: self, action: #selector(tapSyncBarButton(_:)))
         let clearBarButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(tapClearBarButton(_:)))
-        self.navigationItem.rightBarButtonItems = [clearBarButton, syncBarButton]
+        self.navigationItem.rightBarButtonItems = [syncBarButton, clearBarButton]
     }
     
     @objc func tapSyncBarButton(_ sender: UIBarButtonItem) {
@@ -48,7 +48,7 @@ class CharacterDetailViewController: UIViewController {
     }
     
     @objc func tapClearBarButton(_ sender: UIBarButtonItem) {
-        let actionController = UIAlertController(title: "초기화", message: nil, preferredStyle: .actionSheet)
+        let actionController = UIAlertController(title: "\(self.characterTitle) 초기화", message: nil, preferredStyle: .actionSheet)
         actionController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         actionController.addAction(UIAlertAction(title: "일일", style: .default, handler: { _ in
             self.makeAlertController(titleName: "일일")

@@ -122,6 +122,7 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.selectionStyle = .none
+        
         let todoDict = self.callTodoDict()
         let todoSectionName = todoSections[indexPath.section]
         
