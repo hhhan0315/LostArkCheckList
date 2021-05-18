@@ -44,7 +44,7 @@ class ToDoViewController: UIViewController {
         self.todoSection = self.todoSections[choiceRowNum]
         
         contentView.view = pickerView
-        contentView.preferredContentSize.height = 120
+        contentView.preferredContentSize.height = 140
         
         let okAction = UIAlertAction(title: "확인", style: .default, handler: { _ in
             guard let todoName = alertController.textFields?[0].text else {
@@ -60,8 +60,7 @@ class ToDoViewController: UIViewController {
                 todoDict?[self.todoSection]?.append(todo)
             }
             
-            self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
-            self.userDefaults.synchronize()
+            self.saveTodoDict(todoDict: todoDict)
             self.tableView.reloadData()
         })
         okAction.isEnabled = false
@@ -94,6 +93,11 @@ class ToDoViewController: UIViewController {
         }
         return todoDict
     }
+    
+    func saveTodoDict(todoDict: [String:[Todo]]?) {
+        self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
+        self.userDefaults.synchronize()
+    }
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -117,6 +121,7 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
             return UITableViewCell()
         }
+        cell.selectionStyle = .none
         let todoDict = self.callTodoDict()
         let todoSectionName = todoSections[indexPath.section]
         
@@ -136,15 +141,14 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 todoDict?[todoSectionName]?.remove(at: indexPath.row)
-                self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
-                self.userDefaults.synchronize()
+                self.saveTodoDict(todoDict: todoDict)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }))
             
             self.present(alertController, animated: true, completion: nil)
         }
     }
-    //
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var todoDict = self.callTodoDict()
         
@@ -155,8 +159,7 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         todoDict?[sourceSectionName]?.remove(at: sourceIndexPath.row)
         todoDict?[destinationSectionName]?.insert(sourceName!, at: destinationIndexPath.row)
         
-        self.userDefaults.set(try? PropertyListEncoder().encode(todoDict), forKey: "todoDict")
-        self.userDefaults.synchronize()
+        self.saveTodoDict(todoDict: todoDict)
         self.tableView.reloadData()
     }
 }
