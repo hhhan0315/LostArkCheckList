@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
         alertController.addTextField(configurationHandler: { (textField) in
             textField.placeholder = "캐릭터명"
             textField.clearButtonMode = .whileEditing
-            textField.font = UIFont.systemFont(ofSize: 16)
+            textField.font = UIFont.systemFont(ofSize: 18)
             
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main, using: { _ in
                 let textCount = textField.text?.trimmingCharacters(in: .whitespaces).count ?? 0
@@ -85,7 +85,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.textLabel?.text = characterArray[indexPath.row]
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 18)
         
         return cell
     }

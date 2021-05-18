@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01BC163E26538BB7002C033D /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC163D26538BB7002C033D /* Todo.swift */; };
+		01BC16422653B470002C033D /* CharacterDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC16412653B470002C033D /* CharacterDetailCell.swift */; };
 		01C7C66E2642C3DF00F15B12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7C66D2642C3DF00F15B12 /* AppDelegate.swift */; };
 		01C7C6702642C3DF00F15B12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7C66F2642C3DF00F15B12 /* SceneDelegate.swift */; };
 		01C7C6722642C3DF00F15B12 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C7C6712642C3DF00F15B12 /* HomeViewController.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		01BC163D26538BB7002C033D /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		01BC16412653B470002C033D /* CharacterDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailCell.swift; sourceTree = "<group>"; };
 		01C7C66A2642C3DF00F15B12 /* LostArkCheckList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LostArkCheckList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01C7C66D2642C3DF00F15B12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01C7C66F2642C3DF00F15B12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				01BC163D26538BB7002C033D /* Todo.swift */,
 				01C7C6732642C3DF00F15B12 /* Main.storyboard */,
 				01FF4DDD264AA971005AA4A0 /* CharacterDetailViewController.swift */,
+				01BC16412653B470002C033D /* CharacterDetailCell.swift */,
 				01C7C6762642C3E000F15B12 /* Assets.xcassets */,
 				01C7C6782642C3E000F15B12 /* LaunchScreen.storyboard */,
 				01C7C67B2642C3E000F15B12 /* Info.plist */,
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01FF4DDE264AA971005AA4A0 /* CharacterDetailViewController.swift in Sources */,
+				01BC16422653B470002C033D /* CharacterDetailCell.swift in Sources */,
 				01BC163E26538BB7002C033D /* Todo.swift in Sources */,
 				01FF4DD82647B9FF005AA4A0 /* ToDoViewController.swift in Sources */,
 				01C7C6722642C3DF00F15B12 /* HomeViewController.swift in Sources */,

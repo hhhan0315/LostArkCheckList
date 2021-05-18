@@ -88,7 +88,7 @@ class ToDoViewController: UIViewController {
     }
     
     func callTodoDict() -> [String:[Todo]]? {
-        var todoDict: [String:[Todo]]?
+        var todoDict: [String:[Todo]]? = [:]
         if let todoData = UserDefaults.standard.value(forKey:"todoDict") as? Data {
             todoDict = try? PropertyListDecoder().decode([String:[Todo]].self, from: todoData)
         }
@@ -121,7 +121,7 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         let todoSectionName = todoSections[indexPath.section]
         
         cell.textLabel?.text = todoDict?[todoSectionName]?[indexPath.row].name
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 18)
         
         return cell
     }

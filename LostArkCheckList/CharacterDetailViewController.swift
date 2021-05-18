@@ -11,7 +11,7 @@ class CharacterDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var characterTitle = ""
-    private let cellIdentifier = "characterCell"
+    private let cellIdentifier = "characterDetailCell"
     private let userDefaults = UserDefaults.standard
     private let todoSections = ["일일", "주간", "무기한"]
     
@@ -48,11 +48,24 @@ class CharacterDetailViewController: UIViewController {
     }
     
     func callCharacterDict() -> [String:[Todo]]? {
-        var characterDict: [String:[Todo]]?
+        var characterDict: [String:[Todo]]? = [:]
         if let characterData = UserDefaults.standard.value(forKey:self.characterTitle) as? Data {
             characterDict = try? PropertyListDecoder().decode([String:[Todo]].self, from: characterData)
         }
         return characterDict
+    }
+    
+    @objc func touchUpButton(_ sender: UIButton) {
+        var characterDict = self.callCharacterDict()
+        if sender.isSelected {
+            sender.isSelected = false
+            characterDict?[(sender.titleLabel?.text)!]?[sender.tag].isDone = false
+            self.userDefaults.set(try? PropertyListEncoder().encode(characterDict), forKey: self.characterTitle)
+        } else {
+            sender.isSelected = true
+            characterDict?[(sender.titleLabel?.text)!]?[sender.tag].isDone = true
+            self.userDefaults.set(try? PropertyListEncoder().encode(characterDict), forKey: self.characterTitle)
+        }
     }
 }
 
@@ -74,15 +87,26 @@ extension CharacterDetailViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: self.cellIdentifier) as? CharacterDetailCell else {
             return UITableViewCell()
         }
+        cell.selectionStyle = .none
         
         let characterDict = self.callCharacterDict()
         let todoSectionName = todoSections[indexPath.section]
+        let isDone = characterDict?[todoSectionName]?[indexPath.row].isDone
         
         cell.textLabel?.text = characterDict?[todoSectionName]?[indexPath.row].name
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 18)
+        
+        cell.checkButton.addTarget(self, action: #selector(touchUpButton(_:)), for: .touchUpInside)
+        cell.checkButton.tag = indexPath.row
+        cell.checkButton.titleLabel?.text = todoSectionName
+        if isDone == true {
+            cell.checkButton.isSelected = true
+        } else if isDone == false {
+            cell.checkButton.isSelected = false
+        }
         
         return cell
     }

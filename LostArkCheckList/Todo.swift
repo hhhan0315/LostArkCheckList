@@ -9,5 +9,5 @@ import Foundation
 
 struct Todo: Codable {
     let name: String
-    let isDone: Bool
+    var isDone: Bool
 }
