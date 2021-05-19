@@ -32,7 +32,7 @@ class CharacterDetailViewController: UIViewController {
         let actionController = UIAlertController(title: "\(self.characterTitle) 동기화 및 초기화", message: nil, preferredStyle: .actionSheet)
         actionController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         actionController.addAction(UIAlertAction(title: "동기화", style: .default, handler: { _ in
-            let alertController = UIAlertController(title: "동기화", message: "할 일을 동기화 하시겠습니까?\n체크사항이 모두 초기화됩니다.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "동기화", message: "동기화 및 초기화하겠습니까?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 
@@ -77,7 +77,7 @@ class CharacterDetailViewController: UIViewController {
     }
     
     func makeAlertController(titleName: String) {
-        let alertController = UIAlertController(title: "\(titleName) 초기화", message: "초기화하시겠습니까?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "\(self.characterTitle) \(titleName) 초기화", message: "초기화하겠습니까?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             var characterDict = self.callCharacterDict(characterTitle: self.characterTitle)

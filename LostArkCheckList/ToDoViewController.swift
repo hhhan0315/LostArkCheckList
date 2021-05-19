@@ -124,7 +124,7 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         let todoName = todoDict?[todoSectionName]?[indexPath.row].name ?? ""
         
         if editingStyle == .delete {
-            let alertController = UIAlertController(title: "할 일 삭제", message: "\(todoName)\n삭제하시겠습니까?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "할 일 삭제", message: "\(todoName) 삭제하겠습니까?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 todoDict?[todoSectionName]?.remove(at: indexPath.row)

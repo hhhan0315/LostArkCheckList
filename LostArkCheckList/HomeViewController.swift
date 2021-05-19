@@ -77,7 +77,7 @@ class HomeViewController: UIViewController {
         actionController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
         actionController.addAction(UIAlertAction(title: "동기화", style: .default, handler: { _ in
-            let alertController = UIAlertController(title: "전체 캐릭터 동기화", message: "할 일을 전체 캐릭터에 동기화 하시겠습니까?\n체크사항이 모두 초기화됩니다.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "전체 캐릭터 동기화", message: "동기화 및 초기화하겠습니까?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 
@@ -112,7 +112,7 @@ class HomeViewController: UIViewController {
     }
     
     func makeAlertController(titleName: String, characterArray: [String]) {
-        let alertController = UIAlertController(title: "전체 캐릭터 \(titleName) 초기화", message: "초기화하시겠습니까?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "전체 캐릭터 \(titleName) 초기화", message: "초기화하겠습니까?", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
             for characterTitle in characterArray {
@@ -171,7 +171,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let characterName = characterArray[indexPath.row]
         
         if editingStyle == .delete {
-            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(characterName)\n삭제하시겠습니까?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "캐릭터 삭제", message: "\(characterName) 삭제하겠습니까?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
             alertController.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
                 characterArray.remove(at: indexPath.row)
@@ -190,6 +190,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         characterArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
         self.saveCharacterArray(characterArray: characterArray)
+        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
