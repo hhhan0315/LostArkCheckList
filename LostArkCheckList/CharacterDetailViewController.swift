@@ -63,7 +63,7 @@ class CharacterDetailViewController: UIViewController {
         self.present(actionController, animated: true, completion: nil)
     }
     
-    @objc func touchUpButton(_ sender: UIButton) {
+    @objc func tapCheckButton(_ sender: UIButton) {
         var characterDict = self.callCharacterDict(characterTitle: self.characterTitle)
         if sender.isSelected {
             sender.isSelected = false
@@ -140,14 +140,16 @@ extension CharacterDetailViewController: UITableViewDelegate, UITableViewDataSou
         cell.textLabel?.text = characterDict?[todoSectionName]?[indexPath.row].name
         cell.textLabel?.font = UIFont.systemFont(ofSize: 18)
         
-        cell.checkButton.addTarget(self, action: #selector(touchUpButton(_:)), for: .touchUpInside)
+        cell.checkButton.addTarget(self, action: #selector(tapCheckButton(_:)), for: .touchUpInside)
         cell.checkButton.tag = indexPath.row
         cell.checkButton.titleLabel?.text = todoSectionName
         
         if isDone == true {
             cell.checkButton.isSelected = true
+            cell.textLabel?.textColor = .lightGray
         } else if isDone == false {
             cell.checkButton.isSelected = false
+            cell.textLabel?.textColor = .black
         }
         
         return cell
