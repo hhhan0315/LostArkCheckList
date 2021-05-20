@@ -65,12 +65,16 @@ class CharacterDetailViewController: UIViewController {
     
     @objc func tapCheckButton(_ sender: UIButton) {
         var characterDict = self.callCharacterDict(characterTitle: self.characterTitle)
+        guard let titleLabelText = sender.titleLabel?.text else {
+            return
+        }
+        
         if sender.isSelected {
             sender.isSelected = false
-            characterDict?[(sender.titleLabel?.text)!]?[sender.tag].isDone = false
+            characterDict?[titleLabelText]?[sender.tag].isDone = false
         } else {
             sender.isSelected = true
-            characterDict?[(sender.titleLabel?.text)!]?[sender.tag].isDone = true
+            characterDict?[titleLabelText]?[sender.tag].isDone = true
         }
         self.saveCharacterDict(characterDict: characterDict, characterTitle: self.characterTitle)
         self.tableView.reloadData()

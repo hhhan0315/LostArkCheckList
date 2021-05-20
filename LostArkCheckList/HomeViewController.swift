@@ -187,10 +187,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         var characterArray = self.callCharacterArray()
+        let characterName = characterArray[sourceIndexPath.row]
         
-        characterArray.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        characterArray.remove(at: sourceIndexPath.row)
+        characterArray.insert(characterName, at: destinationIndexPath.row)
+
         self.saveCharacterArray(characterArray: characterArray)
-        self.tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

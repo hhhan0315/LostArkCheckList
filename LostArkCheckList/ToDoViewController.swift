@@ -141,13 +141,14 @@ extension ToDoViewController: UITableViewDelegate, UITableViewDataSource {
         
         let sourceSectionName = todoSections[sourceIndexPath.section]
         let destinationSectionName = todoSections[destinationIndexPath.section]
-        let sourceName = todoDict?[sourceSectionName]?[sourceIndexPath.row]
+        guard let sourceName = todoDict?[sourceSectionName]?[sourceIndexPath.row] else {
+            return
+        }
         
         todoDict?[sourceSectionName]?.remove(at: sourceIndexPath.row)
-        todoDict?[destinationSectionName]?.insert(sourceName!, at: destinationIndexPath.row)
+        todoDict?[destinationSectionName]?.insert(sourceName, at: destinationIndexPath.row)
         
         self.saveTodoDict(todoDict: todoDict)
-        self.tableView.reloadData()
     }
 }
 
